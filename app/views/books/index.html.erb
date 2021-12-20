@@ -1,9 +1,9 @@
 <% @books.each do |book| %>
 <div>
-  <%= attachment_image_tag book, :image %>
-  <p>投稿ユーザー画像：<%= image_tag('sample-author1.jpg') %></p>
+  <%= attachment_image_tag book, :image_id %>
+  <p>投稿ユーザー画像: <%= image_tag('no_image.jpg') %></p>
   <p>Title：<%= book.title %></p>
-  <p>Opnion：<%= book.opnion %></p>
+  <p>Opinion：<%= book.opinion %></p>
 
 </div>
 <% end %>

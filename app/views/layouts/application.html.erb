@@ -12,7 +12,7 @@
   <body>
     <% if user_signed_in? %>
       <li>
-        <%= link_to '投稿フォーム', new_books_path %>
+        <%= link_to '投稿フォーム', new_book_path %>
       </li>
       <li>
         <%= link_to 'Home', user_path(current_user.id) %>

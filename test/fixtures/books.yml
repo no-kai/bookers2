@@ -3,9 +3,9 @@
 one:
   title: MyString
   body: MyText
-  progile_image_id: MyString
+  user_id: 1
 
 two:
   title: MyString
   body: MyText
-  progile_image_id: MyString
+  user_id: 1
