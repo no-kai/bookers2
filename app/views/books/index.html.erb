@@ -1,9 +1,10 @@
 <% @books.each do |book| %>
 <div>
   <%= attachment_image_tag book, :image_id %>
-  <p>投稿ユーザー画像: <%= image_tag('no_image.jpg') %></p>
+  <p>投稿ユーザー画像：<%= attachment_image_tag book.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %></p>
   <p>Title：<%= book.title %></p>
   <p>Opinion：<%= book.opinion %></p>
+  <%= link_to "Show", "/books/#{book.id}/" %>
 
 </div>
 <% end %>
