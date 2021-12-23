@@ -1,10 +1,23 @@
 class UsersController < ApplicationController
 
+  def new
+    @book = Book.new
+  end
 
   def index
     @users = User.all
     @book = Book.new
     @user = current_user
+  end
+
+  def create
+    @book = Book.new(book_params)
+    @book.user_id = current_user.id
+    if @book.save
+      redirect_to book_path(@book)
+    else
+      render :index
+    end
   end
 
   def show
@@ -18,7 +31,7 @@ class UsersController < ApplicationController
     if @user.id == current_user.id
       render "edit"
     else
-      redirect_to users_path
+      redirect_to user_path(current_user.id)
     end
   end
 
@@ -27,11 +40,11 @@ class UsersController < ApplicationController
     @user = user
 
     if user.update(user_params)
-      flash[:notice] = 'Profile was successfully update'
+      flash[:notice] = 'You have updated user successfully.'
       redirect_to user_path(@user.id)
     else
       @user = user
-      render :show
+      render :edit
     end
   end
 
@@ -41,4 +54,10 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :profile_image, :introduction)
   end
 
+  def ensure_correct_user
+    @user = User.find(params[:id])
+    unless @user == current_user
+      redirect_to user_path(current_user.id)
+    end
+  end
 end

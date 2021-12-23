@@ -1,33 +1,57 @@
-<%= render 'layouts/list', user: @user %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'layouts/list', user: @user %>
 
-<h1>New book</h1>
-<% if @book.errors.any? %>
-  <%= @book.errors.count %>件のエラーが発生しました
-  <% @book.errors.full_messages.each do |message| %>
-    <%= message %>
-  <% end %>
-<% end %>
+      <h1>New book</h1>
+      <% if @book.errors.any? %>
+        <%= @book.errors.count %>件のエラーが発生しました
+        <% @book.errors.full_messages.each do |message| %>
+          <%= message %>
+        <% end %>
+      <% end %>
 
-<%= form_with model: @book_new, local:true do |f| %>
+      <%= form_with model: @book_new, local:true do |f| %>
 
-  <h4>Title</h4>
-  <%= f.text_field :title %>
-  <h4>Opinion</h4>
-  <%= f.text_area :body %>
-  <%= f.submit '投稿' %>
-<% end %>
+        <h4>Title</h4>
+        <%= f.text_field :title %>
+        <h4>Opinion</h4>
+        <%= f.text_area :body %>
+        <input type="submit" name="commit" value="Create Book" class="btn btn-success" data-disable-with="Create Book">
+      <% end %>
+    </div>
 
-<h1>Book detail</h1>
-
-<div>
-  <%= attachment_image_tag @book, :image_id %>
-  <p>username：<%= @user.name %></p>
-  <p>Title：<%= @book.title %></p>
-  <p>Opinion：<%= @book.opinion %></p>
-  <% if @book.user == current_user %>
-    <%= link_to "Edit", "/books/#{@book.id}/edit" %>
-    <%= link_to "Destroy", "/books/#{@book.id}", method: :delete, "data-confirm" => "Are you sure?" %>
-
-  <% end %>
-
+    <div class="col-md-8 offset-md-1">
+      <h1>Book detail</h1>
+        <table class="table">
+          <tr>
+            <td>
+              <a>
+              <%= link_to user_path(@user.id) do %>
+              <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %>
+              <%= @user.name %>
+              <% end %>
+              </a>
+            </td>
+            <td>
+              <%= link_to book_path(@book.id) do %>
+              <%= @book.title %>
+              <% end %>
+            </td>
+            <td>
+              <%= @book.body %>
+            </td>
+            <td>
+              <% if @book.user == current_user %>
+                <%= link_to "Edit", "/books/#{@book.id}/edit" %>
+                <%= link_to "Destroy", "/books/#{@book.id}", method: :delete, "data-confirm" => "Are you sure?" %>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+    </div>
+  </div>
 </div>
+
+
+
